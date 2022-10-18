@@ -22,8 +22,22 @@ def get_dummy_feature_importance_data():
 consumption_df = get_dummy_peer_consumption_data()
 feature_imp_df = get_dummy_feature_importance_data()
 
+# Data inputs for the analysed property
+st.markdown(
+"""
+# Data input
+In this section please provide the relevant parameters of your property that you would like to compare and analyse.
+"""
+)
+size = st.number_input('How large is your property (in m2)?')
 
 # Consumption chart
+st.markdown(
+"""
+# Analysis
+In this section you can see the analysis and comparisons regarding your property's energy consumption.
+"""
+)
 consumption_df['Date'] = consumption_df.index
 
 df_melted = pd.melt(consumption_df,
@@ -41,11 +55,6 @@ st.altair_chart(c, use_container_width=True)
 
 # Feature importance
 feature_imp_df['Type'] = feature_imp_df.index
-#
-# feature_imp_df_melted = pd.melt(consumption_df,
-#                     id_vars=['Type'],
-#                     var_name='Value',
-#                     value_name='Monthly electricity consumption (kWh)')
 
 f_imp = alt.Chart(feature_imp_df).mark_bar().encode(
     x='Importance:Q',

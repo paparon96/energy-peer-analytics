@@ -1,3 +1,5 @@
+import datetime
+
 import pandas as pd
 
 import altair as alt
@@ -15,6 +17,11 @@ def get_dummy_peer_consumption_with_pv_data():
 
 consumption_with_pv_df = get_dummy_peer_consumption_with_pv_data()
 
+# Experiment start date selector
+experiment_start_date = st.date_input(
+    "Solar PV installation date",
+    datetime.date(2022, 5, 31))
+
 # Net consumption with PV experiment chart (DinD model)
 consumption_with_pv_df['Date'] = consumption_with_pv_df.index
 
@@ -29,7 +36,7 @@ c = alt.Chart(df_with_pv_melted).mark_line(point={
 x='monthdate(Date)', y='Net monthly electricity consumption (kWh)', color='Value').interactive()
 
 rules = alt.Chart(pd.DataFrame({
-  'Date': ['2022-05-31'],
+  'Date': [experiment_start_date.strftime("%Y-%m-%d")],
   'color': ['red']
 })).mark_rule().encode(
   x='monthdate(Date):T',
