@@ -2,8 +2,11 @@ import datetime
 
 import pandas as pd
 
+import matplotlib.pyplot as plt
 import altair as alt
 import streamlit as st
+
+from utils import diff_in_diff_regr
 
 
 st.title('Energy Efficiency Peer Analytics')
@@ -45,3 +48,18 @@ rules = alt.Chart(pd.DataFrame({
 
 st.subheader(f'Peer-group consumption analytics with solar PV installation in 2022')
 st.altair_chart(c + rules, use_container_width=True)
+
+# Output (Causal effect estimate)
+confidence_level = st.number_input('Required confidence level for estimate: (in %)?', value=95, min_value=0, max_value=100)
+
+model = diff_in_diff_regr(consumption_with_pv_df.drop(columns=['Date']), experiment_start_date)
+est = model.params['treatment']
+ci = model.conf_int(alpha=1 - confidence_level/100).loc['treatment']
+errors = [[est - ci[0]], [ci[1] - est]]
+
+plt.bar([0], est, yerr=errors, color=['lightgreen'])
+
+plt.ylabel('kWh')
+plt.title('Estimated monthly effect of \n PV installation on electricity consumption')
+plt.tick_params(axis='x', which='both', bottom=False, top=False, labelbottom=False)
+st.pyplot(plt)

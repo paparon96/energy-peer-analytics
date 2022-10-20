@@ -29,7 +29,11 @@ st.markdown(
 In this section please provide the relevant parameters of your property that you would like to compare and analyse.
 """
 )
-size = st.number_input('How large is your property (in m2)?')
+size = st.number_input('How large is your property (in m2)?', value=70, min_value=0, max_value=500)
+
+heating_type = st.selectbox(
+    'What kind of heating system does your property have',
+    ('Gas', 'Oil', 'Electricity'))
 
 # Consumption chart
 st.markdown(
