@@ -18,9 +18,15 @@ def get_dummy_feature_importance_data():
     feature_imp_df = pd.read_csv('data/dummy_feature_importance.csv', index_col=0)
     return feature_imp_df
 
+@st.experimental_memo
+def get_dummy_hourly_usage_price_data():
+    hourly_usage_price = pd.read_csv('data/hourly_usage_price.csv', index_col=0)
+    return hourly_usage_price
+
 
 consumption_df = get_dummy_peer_consumption_data()
 feature_imp_df = get_dummy_feature_importance_data()
+hourly_usage_price = get_dummy_hourly_usage_price_data()
 
 # Data inputs for the analysed property
 st.markdown(
@@ -74,6 +80,30 @@ energy_usage_by_devices = pd.DataFrame({"device": ['Oven', 'Washing machine', 'J
 energy_by_dev = alt.Chart(energy_usage_by_devices).mark_arc(innerRadius=50).encode(
     theta=alt.Theta(field="value", type="quantitative"),
     color=alt.Color(field="device", type="nominal"),
+    tooltip=['device:N','value:Q']
 )
 st.subheader(f'Energy usage distribution among household devices')
 st.altair_chart(energy_by_dev, use_container_width=True)
+
+# Energy usage and prices throughout the day (for behavioral load shifting)
+fig_hourly_usage_price = alt.Chart(hourly_usage_price).mark_bar().encode(
+    x='Hour:O',
+    y='Energy usage (kWh):Q',
+    color='Price (EUR/kWh):Q',
+)
+
+st.subheader(f'Energy usage throughout a typical day')
+st.altair_chart(fig_hourly_usage_price, use_container_width=True)
+
+st.subheader(f'Energy saving recommendations')
+col1, col2 = st.columns(2)
+
+with col1:
+   st.markdown("### Recommendation")
+   st.button("Charge your EV in the morning")
+   st.button("Better insulation for the windows")
+
+with col2:
+   st.markdown("### Savings potential")
+   st.button("50 EUR/month")
+   st.button("30 EUR/month")

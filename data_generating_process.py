@@ -30,7 +30,17 @@ feature_imp = pd.DataFrame({'Importance': {'Insulation': 0.5,
 'Heating system': 0.3}})
 print(feature_imp)
 
+# Energy usage and average prices throughout a day
+hourly_rates = np.concatenate((np.random.uniform(3, 5, size=8),
+                               np.random.uniform(0, 1, size=8),
+                               np.random.uniform(5, 10, size=8)))
+
+hourly_usage_price = pd.DataFrame({'Hour': range(0, 24),
+                                   'Energy usage (kWh)': np.random.normal(10, 1, size=24),
+                                   'Price (EUR/kWh)': hourly_rates})
+
 # Export dummy data
 values.to_csv('data/dummy_peer_consumption.csv')
 values_with_pv.to_csv('data/dummy_peer_consumption_with_pv.csv')
 feature_imp.to_csv('data/dummy_feature_importance.csv')
+hourly_usage_price.to_csv('data/hourly_usage_price.csv')
