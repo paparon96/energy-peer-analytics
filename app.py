@@ -95,15 +95,11 @@ fig_hourly_usage_price = alt.Chart(hourly_usage_price).mark_bar().encode(
 st.subheader(f'Energy usage throughout a typical day')
 st.altair_chart(fig_hourly_usage_price, use_container_width=True)
 
-st.subheader(f'Energy saving recommendations')
+st.subheader(f'Energy saving recommendations with savings potential')
 col1, col2 = st.columns(2)
 
 with col1:
-   st.markdown("### Recommendation")
-   st.button("Charge your EV in the morning")
-   st.button("Better insulation for the windows")
+   st.metric(label="Charge your EV in the morning", value="50 EUR/month", delta="10 EUR/month")
 
 with col2:
-   st.markdown("### Savings potential")
-   st.button("50 EUR/month")
-   st.button("30 EUR/month")
+   st.metric(label="Better insulation for the windows", value="30 EUR/month", delta="5 EUR/month")
