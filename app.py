@@ -74,15 +74,15 @@ st.subheader(f'Importance of different factors for energy usage')
 st.altair_chart(f_imp, use_container_width=True)
 
 # Energy usage by devices
-energy_usage_by_devices = pd.DataFrame({"device": ['Oven', 'Washing machine', 'Jacuzzi'],
-                                        "value": [4, 6, 10]})
+energy_usage_by_devices = pd.DataFrame({"device": ['Oven', 'Washing machine', 'Dryer'],
+                                        "value": [4, 6, 6]})
 
 energy_by_dev = alt.Chart(energy_usage_by_devices).mark_arc(innerRadius=50).encode(
     theta=alt.Theta(field="value", type="quantitative"),
     color=alt.Color(field="device", type="nominal"),
     tooltip=['device:N','value:Q']
 )
-st.subheader(f'Energy usage distribution among household devices')
+st.subheader(f'Electricity usage distribution among household devices')
 st.altair_chart(energy_by_dev, use_container_width=True)
 
 # Energy usage and prices throughout the day (for behavioral load shifting)
@@ -97,9 +97,5 @@ st.altair_chart(fig_hourly_usage_price, use_container_width=True)
 
 st.subheader(f'Energy saving recommendations with savings potential')
 col1, col2 = st.columns(2)
-
-with col1:
-   st.metric(label="Charge your EV in the morning", value="50 EUR/month", delta="10 EUR/month")
-
-with col2:
-   st.metric(label="Better insulation for the windows", value="30 EUR/month", delta="5 EUR/month")
+col1.metric(label="Charge your EV in the morning", value="50 EUR/month", delta="-0 EUR investment cost")
+col2.metric(label="Better insulation for the windows", value="30 EUR/month", delta="-100 EUR investment cost")
