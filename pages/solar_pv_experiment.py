@@ -11,6 +11,21 @@ from utils import diff_in_diff_regr
 
 st.title('Energy Efficiency Peer Analytics')
 
+st.markdown('''
+## Description
+On this page you can test how installing photovoltaic solar panels on your house affected your net electricity consumption.
+This enables you to calculate the realized return on this investment and compare your house to similar households.
+## Methodology
+The impact of solar panel installation on electricity usage is estimated with the difference-in-differences method
+([see here](https://dimewiki.worldbank.org/Difference-in-Differences#) for additional details regarding the method),
+where your home's electricity usage trend is compared to the trend of your peer group. A confidence interval is also provided
+for the estimated effect at the required significance level.
+\n
+The same general methodology could be applied to any household action (e.g. insulation, usage pattern changes etc.) to investigate its impact on energy consumption.
+## Analysis
+'''
+)
+
 
 # Import data (we use @st.experimental_memo to keep the dataset in cache)
 @st.experimental_memo
