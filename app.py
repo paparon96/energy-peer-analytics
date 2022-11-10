@@ -46,7 +46,7 @@ In this section please provide the relevant parameters of your home that you wou
 )
 size = st.number_input('How large is your home (in m2)?', value=70, min_value=0, max_value=500)
 
-year_built = st.number_input('In which year was your home built?', value=1980, min_value=1900, max_value=pd.to_datetime('today').dt.year)
+year_built = st.number_input('In which year was your home built?', value=1980, min_value=1900, max_value=pd.to_datetime('today').year)
 
 heating_type = st.selectbox(
     'What kind of heating system does your home have?',
