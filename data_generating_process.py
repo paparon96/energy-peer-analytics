@@ -51,8 +51,28 @@ hourly_usage_price = pd.DataFrame({'Hour': range(0, 24),
                                    'Energy usage (kWh)': hourly_consumption,
                                    'Price (EUR/kWh)': hourly_rates})
 
+# RDD natural experiment with home eligibility
+n = 500
+min_c = 0
+max_c = 10
+cutoff_c = 5
+
+beta = -1
+gamma = 3
+alpha = 1
+
+c = np.random.uniform(min_c, max_c, n)
+x = (c > cutoff_c).astype(int)
+epsilon = np.random.normal(0, 1, n)
+y = alpha + beta * x + gamma * c + epsilon
+electricity_consumption_rdd = pd.DataFrame({'home_size': c,
+                                   'treatment': x,
+                                   'electricity_consumption': y})
+
 # Export dummy data
 values.to_csv('data/dummy_peer_consumption.csv')
 values_with_pv.to_csv('data/dummy_peer_consumption_with_pv.csv')
 feature_imp.to_csv('data/dummy_feature_importance.csv')
 hourly_usage_price.to_csv('data/hourly_usage_price.csv')
+electricity_consumption_rdd.to_csv('data/electricity_consumption_rdd.csv')
+
