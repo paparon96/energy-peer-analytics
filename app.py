@@ -16,18 +16,18 @@ you can reduce energy consumption at home and realize financial savings as well.
 )
 
 
-# Import data (we use @st.experimental_memo to keep the dataset in cache)
-@st.experimental_memo
+# Import data (we use @st.cache_data to keep the dataset in cache)
+@st.cache_data
 def get_dummy_peer_consumption_data():
     consumption_df = pd.read_csv('data/dummy_peer_consumption.csv', index_col=0)
     return consumption_df
 
-@st.experimental_memo
+@st.cache_data
 def get_dummy_feature_importance_data():
     feature_imp_df = pd.read_csv('data/dummy_feature_importance.csv', index_col=0)
     return feature_imp_df
 
-@st.experimental_memo
+@st.cache_data
 def get_dummy_hourly_usage_price_data():
     hourly_usage_price = pd.read_csv('data/hourly_usage_price.csv', index_col=0)
     return hourly_usage_price

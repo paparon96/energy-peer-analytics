@@ -16,8 +16,8 @@ DUMMY
 )
 
 
-# Import data (we use @st.experimental_memo to keep the dataset in cache)
-@st.experimental_memo
+# Import data (we use @st.cache_data to keep the dataset in cache)
+@st.cache_data
 def get_dummy_electricity_consumption_rdd_data():
     consumption_df = pd.read_csv('data/electricity_consumption_rdd.csv', index_col=0)
     return consumption_df

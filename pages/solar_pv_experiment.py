@@ -27,8 +27,8 @@ The same general methodology could be applied to any household action (e.g. insu
 )
 
 
-# Import data (we use @st.experimental_memo to keep the dataset in cache)
-@st.experimental_memo
+# Import data (we use @st.cache_data to keep the dataset in cache)
+@st.cache_data
 def get_dummy_peer_consumption_with_pv_data():
     consumption_df = pd.read_csv('data/dummy_peer_consumption_with_pv.csv', index_col=0)
     return consumption_df
